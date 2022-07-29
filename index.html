@@ -6,8 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/common.css" />
     <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/animate.css/animate.css" type="text/css" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/rmodal/dist/rmodal.css" type="text/css" />
+    <script type="text/javascript" src="https://unpkg.com/rmodal/dist/rmodal.js"></script>
+    <style type="text/css">
+      .modal .modal-dialog {
+        width: 400px;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function () {
+        var modal = new RModal(document.getElementById('modal'), {
+          
+          beforeOpen: function (next) {
+            console.log('beforeOpen');
+            next();
+          },
+          afterOpen: function () {
+            console.log('opened');
+          },
+          beforeClose: function (next) {
+            console.log('beforeClose');
+            next();
+          },
+          afterClose: function () {
+            console.log('closed');
+          },
+          dialogOpenClass: 'animate__slideInDown',
+          dialogCloseClass: 'animate__slideOutUp'
+        });
+
+        document.addEventListener('keydown', function (ev) {
+          modal.keydown(ev);
+        }, false);
+
+        document.getElementById('showModal').addEventListener("click", function (ev) {
+          ev.preventDefault();
+          modal.open();
+        }, false);
+
+        window.modal = modal;
+      }
+    </script>
   </head>
   <body>
+    <h1>Mortgage</h1>
+    <div class="bank-fields">
+
+      <div id="modal" class="modal">
+        <div class="modal-dialog animate__animated">
+          <div class="modal-content">
+            <form class="form-horizontal" method="get">
+              <div class="modal-header">
+                <strong>Type bank information</strong>
+              </div>
+      
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="dummyText" class="control-label col-xs-4">Bank name</label>
+                  <div class="input-group col-xs-7">
+                    <input type="text" name="dummyText" id="dummyText" class="form-control" />
+                  </div>
+                  <label for="dummyText" class="control-label col-xs-4">Mortgage size, $</label>
+                  <div class="input-group col-xs-7">
+                    <input type="text" name="dummyText" id="dummyText" class="form-control" />
+                  </div>
+                  <label for="dummyText" class="control-label col-xs-4">Min. down payment, $</label>
+                  <div class="input-group col-xs-7">
+                    <input type="text" name="dummyText" id="dummyText" class="form-control" />
+                  </div>
+                  <label for="dummyText" class="control-label col-xs-4">Loan period, month</label>
+                  <div class="input-group col-xs-7">
+                    <input type="text" name="dummyText" id="dummyText" class="form-control" />
+                  </div>
+                  <label for="dummyText" class="control-label col-xs-4">Interest rate, %</label>
+                  <div class="input-group col-xs-7">
+                    <input type="text" name="dummyText" id="dummyText" class="form-control" />
+                  </div>
+                </div>
+              </div>
+      
+              <div class="modal-footer">
+                <button class="btn btn-default" type="button" onclick="modal.close();">Cancel</button>
+                <button class="btn btn-primary" type="submit" onclick="modal.close();">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+          
+      <a href="#" id="showModal" class="btn btn-success">Create new bank</a>
+      
+    </div>
     <script href="/js/script.js" type="module"></script>
   </body>
 </html>
