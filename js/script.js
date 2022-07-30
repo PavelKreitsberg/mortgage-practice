@@ -44,13 +44,21 @@ function createBankList(banks) {
     banks
       .map((bank, index) => {
         return `<li class="bank__item">
-        <p>${index + 1}. ${bank.name}</p>
+        <p>${index + 1}. <span>${bank.name}</span></p>
         <button type="button" class="button--edit">Edit</button>
         <button type="button" class="button--delete">Delete</button>
       </li>`;
       })
       .join('')
   );
+
+  const titleList = document.querySelectorAll('.bank__item span');
+  console.log(titleList);
+  titleList.forEach(elem => {
+    elem.addEventListener('click', () => {
+      console.log(elem.textContent);
+    });
+  });
 }
 
 createBankList(banks);
