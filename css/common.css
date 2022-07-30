@@ -51,12 +51,26 @@ p {
   align-items: flex-start;
 }
 
+#root {
+  display: flex;
+  flex-direction: row;
+}
+
 .fields__item {
   width: 100%;
+  min-height: 50px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.bank__list {
+background-color: blue;
+}
+
+.feature__list {
+background-color: yellow;
 }
 
 .button {
