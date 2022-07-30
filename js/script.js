@@ -55,10 +55,13 @@ function createBankList(banks) {
   const titleList = document.querySelectorAll('.bank__item span');
   console.log(titleList);
   titleList.forEach(elem => {
-    elem.addEventListener('click', () => {
-      console.log(elem.textContent);
-    });
+    elem.addEventListener('click', elementClickFinder);
   });
+}
+
+function elementClickFinder(event) {
+  const currentBank = banks.find(bank => bank.name === event.target.textContent);
+  console.log(currentBank);
 }
 
 createBankList(banks);
