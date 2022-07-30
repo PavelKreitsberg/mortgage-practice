@@ -59,18 +59,38 @@ p {
 .fields__item {
   width: 100%;
   min-height: 50px;
+  padding: 10px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.banks {
+  width: 100%;
+  padding: 15px;
+}
+
 .bank__list {
-background-color: blue;
+  background-color: rgb(158, 158, 255);
+  width: 100%;
+}
+
+.bank__item {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.button--edit {
+  display: block;
+  margin-left: auto;
+  margin-right: 5px;
 }
 
 .feature__list {
-background-color: yellow;
+  background-color: rgb(243, 243, 184);
 }
 
 .button {
