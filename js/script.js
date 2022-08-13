@@ -51,6 +51,7 @@ banksInformation.append(loanInfoHeader);
 root.append(banksList, banksInformation);
 
 function createBankList(banks) {
+  bankListUl.innerHTML = '';
   bankListUl.insertAdjacentHTML(
     'afterbegin',
     banks
@@ -65,7 +66,7 @@ function createBankList(banks) {
   );
 
   const titleList = document.querySelectorAll('.bank__item span');
-  
+
   titleList.forEach(elem => {
     elem.addEventListener('click', elementClickFinder);
   });
@@ -75,12 +76,11 @@ function elementClickFinder(event) {
   const currentBank = banks.find(
     bank => bank.name === event.target.textContent
   );
-  console.log(currentBank);
 }
 
 createBankList(banks);
 
-bankBtn.addEventListener('click', openModal)
+bankBtn.addEventListener('click', openModal);
 
 function openModal() {
   const modalMarkup = `<div class="modal">
@@ -119,5 +119,16 @@ function openModal() {
 
 function addBank(evt) {
   evt.preventDefault();
+  const bank = {
+    id: Date.now(),
+    name: evt.target.name.value,
+    interestRate: evt.target.interestRate.value,
+    maxLoan: evt.target.maxLoan.value,
+    minPayment: evt.target.minPayment.value,
+    loanTerm: evt.target.loanTerm.value,
+  };
+  banks.push(bank);
   modal.innerHTML = '';
+
+  createBankList(banks);
 }
