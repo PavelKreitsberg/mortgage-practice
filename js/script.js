@@ -36,17 +36,20 @@ const bankHeader = document.createElement('h2');
 bankHeader.classList.add('subtitle');
 bankHeader.textContent = 'Banks list';
 
+banksList.append(bankHeader, bankListUl, bankBtn);
+
 const loanInfoHeader = document.createElement('h2');
 loanInfoHeader.classList.add('subtitle');
 loanInfoHeader.textContent = 'Loan Information';
 
-banksList.append(bankHeader, bankListUl, bankBtn);
+const loanInformation = document.createElement('ul');
+loanInformation.classList.add('features');
 
 const banksInformation = document.createElement('div');
 banksInformation.classList.add('fields__item');
 banksInformation.classList.add('feature__list');
 
-banksInformation.append(loanInfoHeader);
+banksInformation.append(loanInfoHeader, loanInformation);
 
 root.append(banksList, banksInformation);
 
@@ -76,6 +79,8 @@ function elementClickFinder(event) {
   const currentBank = banks.find(
     bank => bank.name === event.target.textContent
   );
+  // console.log(currentBank);
+  renderInfMarkup(currentBank);
 }
 
 createBankList(banks);
@@ -131,4 +136,36 @@ function addBank(evt) {
   modal.innerHTML = '';
 
   createBankList(banks);
+}
+
+function renderInfMarkup({
+  name,
+  interestRate,
+  maxLoan,
+  minPayment,
+  loanTerm,
+}) {
+  const loanInfoMarkup = `
+          <li class="features__item">
+            <p class="features__name">Bank:</p>
+            <span class="features__value">${name}</span>
+          </li>
+          <li class="features__item">
+            <p class="features__name">Mortgage size, $:</p>
+            <span class="features__value">${maxLoan}</span>
+          </li>
+          <li class="features__item">
+            <p class="features__name">Minimum down payment, $:</p>
+            <span class="features__value">${minPayment}</span>
+          </li>
+          <li class="features__item">
+            <p class="features__name">Loan period, month:</p>
+            <span class="features__value">${loanTerm}</span>
+          </li>
+          <li class="features__item">
+            <p class="features__name">Interest rate, %:</p>
+            <span class="features__value">${interestRate}</span>
+          </li>`;
+
+  loanInformation.innerHTML = loanInfoMarkup;
 }
