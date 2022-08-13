@@ -18,6 +18,7 @@ const banks = [
 ];
 
 const root = document.querySelector('#root');
+const modal = document.querySelector('#modal');
 
 const banksList = document.createElement('div');
 banksList.classList.add('fields__item');
@@ -26,15 +27,26 @@ banksList.classList.add('bank__list');
 const bankBtn = document.createElement('button');
 bankBtn.classList.add('button');
 bankBtn.textContent = 'Create new bank';
+bankBtn.setAttribute('id', 'showModal');
 
 const bankListUl = document.createElement('ul');
 bankListUl.classList.add('banks');
 
-banksList.append(bankListUl, bankBtn);
+const bankHeader = document.createElement('h2');
+bankHeader.classList.add('subtitle');
+bankHeader.textContent = 'Banks list';
+
+const loanInfoHeader = document.createElement('h2');
+loanInfoHeader.classList.add('subtitle');
+loanInfoHeader.textContent = 'Loan Information';
+
+banksList.append(bankHeader, bankListUl, bankBtn);
 
 const banksInformation = document.createElement('div');
 banksInformation.classList.add('fields__item');
 banksInformation.classList.add('feature__list');
+
+banksInformation.append(loanInfoHeader);
 
 root.append(banksList, banksInformation);
 
@@ -53,15 +65,59 @@ function createBankList(banks) {
   );
 
   const titleList = document.querySelectorAll('.bank__item span');
-  console.log(titleList);
+  
   titleList.forEach(elem => {
     elem.addEventListener('click', elementClickFinder);
   });
 }
 
 function elementClickFinder(event) {
-  const currentBank = banks.find(bank => bank.name === event.target.textContent);
+  const currentBank = banks.find(
+    bank => bank.name === event.target.textContent
+  );
   console.log(currentBank);
 }
 
 createBankList(banks);
+
+bankBtn.addEventListener('click', openModal)
+
+function openModal() {
+  const modalMarkup = `<div class="modal">
+        <div class="modal-content">
+          <form class="form">
+            <label>
+              Bank name
+              <input type="text" name="name">
+            </label>
+            <label>
+              Interest rate, %
+              <input type="text" name="interestRate">
+            </label>
+            <label>
+              Max loan, $
+              <input type="text" name="maxLoan">
+            </label>
+            <label>
+              Min payment, $
+              <input type="text" name="minPayment">
+            </label>
+            <label>
+              Loan term
+              <input type="text" name="loanTerm">
+            </label>
+            <button type="submit" class="button" data-action="add">Add bank</button>
+          </form>
+        </div>
+      </div> `;
+  modal.innerHTML = modalMarkup;
+
+  const bankForm = document.querySelector('.form');
+
+  bankForm.addEventListener('submit', addBank);
+}
+
+function addBank(evt) {
+  evt.preventDefault();
+  modal.innerHTML = '';
+}
